@@ -1,7 +1,6 @@
 {
   "name": "example_animal",
   "speed": 1,
-  "max_hp": 1,
   "perception": 1,
   "discretion": 1,
   "armor": 1,

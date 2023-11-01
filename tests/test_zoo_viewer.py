@@ -1,6 +1,6 @@
 import pytest
 
-from animal_generator.zoo_viewer.main import ZooViewer
+from animal_generator.zoo_viewer import ZooViewer
 from pathlib import PosixPath
 
 

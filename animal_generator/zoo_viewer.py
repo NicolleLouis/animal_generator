@@ -3,7 +3,7 @@ from pathlib import Path
 
 
 class ZooViewer:
-    zoo_path = '../zoo/'
+    zoo_path = 'zoo/'
 
     @classmethod
     def find_animal(cls, name):
@@ -18,7 +18,7 @@ class ZooViewer:
 
     @classmethod
     def find_zoo(cls):
-        zoo = Path(__file__).resolve().parent.parent
+        zoo = Path(__file__).resolve().parent
         for file in zoo.iterdir():
             if file.name == 'zoo':
                 return file
