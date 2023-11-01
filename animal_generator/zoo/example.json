@@ -1,0 +1,14 @@
+{
+  "name": "example_animal",
+  "speed": 1,
+  "max_hp": 1,
+  "perception": 1,
+  "discretion": 1,
+  "armor": 1,
+  "attack": 1,
+  "lifespan": 1,
+  "size": 1,
+  "color_1": 1,
+  "color_2": 1,
+  "color_3": 1
+}
