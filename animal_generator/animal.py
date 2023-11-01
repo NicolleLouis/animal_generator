@@ -38,6 +38,16 @@ class Animal:
         self.clean()
         self.check_death()
 
+    def chill(self):
+        self.energy += int(self.energy_consumption/2)
+
+    def heal(self):
+        self.regen()
+
+    def hurt(self, raw_damage):
+        damage = int(raw_damage * (100/(100 + self.armor)))
+        self.hp -= damage
+
     def clean(self):
         self.hp = min(self.hp, self.max_hp)
         self.energy = min(self.energy, self.max_energy)

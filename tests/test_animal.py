@@ -68,3 +68,32 @@ def test_turn():
     assert animal.age == 1
     assert animal.hp == 1000
     assert animal.energy < 1000
+
+
+def test_chill():
+    animal = Animal(test_animal)
+    animal.energy_consumption = 100
+    animal.chill()
+    assert animal.energy == animal.max_energy + 50
+
+
+def test_heal():
+    animal = Animal(test_animal)
+    animal.heal()
+    assert animal.hp == animal.max_hp + animal.size
+
+
+def test_hurt_no_armor():
+    damage = 100
+    animal = Animal(test_animal)
+    animal.armor = 0
+    animal.hurt(damage)
+    assert animal.hp == animal.max_hp - damage
+
+
+def test_hurt_armor():
+    damage = 100
+    animal = Animal(test_animal)
+    animal.armor = 100
+    animal.hurt(damage)
+    assert animal.hp == animal.max_hp - damage / 2
