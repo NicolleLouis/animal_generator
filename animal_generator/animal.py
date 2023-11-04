@@ -1,8 +1,11 @@
+import random
+
 from animal_generator.energy_consumption import EnergyConsumption
 
 
 class Animal:
     size_ratio = 100
+    actions = ["attack", "flee", "heal", "chill"]
 
     def __init__(self, json):
         self.energy_consumption = None
@@ -39,13 +42,13 @@ class Animal:
         self.check_death()
 
     def chill(self):
-        self.energy += int(self.energy_consumption/2)
+        self.energy += int(self.energy_consumption / 2)
 
     def heal(self):
         self.regen()
 
     def hurt(self, raw_damage):
-        damage = int(raw_damage * (100/(100 + self.armor)))
+        damage = int(raw_damage * (100 / (100 + self.armor)))
         self.hp -= damage
 
     def clean(self):
@@ -70,3 +73,6 @@ class Animal:
 
     def die(self):
         self.alive = False
+
+    def compute_action(self, other_animal):
+        return random.choice(self.actions)

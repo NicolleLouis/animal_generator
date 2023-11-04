@@ -1,3 +1,5 @@
+from unittest import mock
+
 import pytest
 
 from animal_generator.zoo_viewer import ZooViewer
@@ -9,7 +11,13 @@ def test_find_zoo():
     assert PosixPath == type(zoo)
 
 
-def test_find_fail():
+def test_find_zoo_fail():
+    with mock.patch('pathlib.Path.iterdir', return_value=[]):
+        with pytest.raises(BaseException):
+            ZooViewer.find_zoo()
+
+
+def test_find_animal_fail():
     with pytest.raises(BaseException):
         ZooViewer.find_animal("fake_animal")
 

@@ -2,7 +2,7 @@ import random
 
 
 class Duel:
-    random_value = 20
+    random_value = 5
 
     def __init__(self, own_value, other_value):
         self.is_win = None

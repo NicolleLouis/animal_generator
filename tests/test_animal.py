@@ -70,6 +70,13 @@ def test_turn():
     assert animal.energy < 1000
 
 
+def test_turn_dead():
+    animal = Animal(test_animal)
+    animal.die()
+    animal.turn()
+    assert animal.age == 0
+
+
 def test_chill():
     animal = Animal(test_animal)
     animal.energy_consumption = 100
@@ -97,3 +104,9 @@ def test_hurt_armor():
     animal.armor = 100
     animal.hurt(damage)
     assert animal.hp == animal.max_hp - damage / 2
+
+
+def test_compute_action():
+    animal_1 = Animal(test_animal)
+    animal_2 = Animal(test_animal)
+    assert animal_1.compute_action(animal_2) in Animal.actions
