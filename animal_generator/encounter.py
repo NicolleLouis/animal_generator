@@ -12,6 +12,10 @@ class Encounter:
 
         self.compute_first_animal(animal_1, animal_2)
 
+    def run(self):
+        while not self.finished:
+            self.turn()
+
     def compute_first_animal(self, animal_1, animal_2):
         initiative_duel = Duel(animal_1.speed, animal_2.speed)
         initiative_duel.resolve()
@@ -63,6 +67,16 @@ class Encounter:
 
     @staticmethod
     def attack(attacking_animal, victim_animal):
+        victim_seen_duel = Duel(attacking_animal.perception, victim_animal.discretion)
+        victim_seen_duel.resolve()
+        if not victim_seen_duel.is_win:
+            return
+
+        attacking_seen_duel = Duel(victim_animal.perception, attacking_animal.discretion)
+        attacking_seen_duel.resolve()
+        if not attacking_seen_duel.is_win:
+            victim_animal.hurt(attacking_animal.attack)
+
         speed_duel = Duel(attacking_animal.speed, victim_animal.speed)
         speed_duel.resolve()
         if speed_duel.is_win:

@@ -6,10 +6,10 @@ from animal_generator.encounter import Encounter
 animal_slow = {
     "name": "animal_1",
     "speed": 0,
-    "perception": 0,
+    "perception": 10,
     "discretion": 0,
     "armor": 0,
-    "attack": 0,
+    "attack": 1,
     "lifespan": 100,
     "size": 10,
     "color_1": 1,
@@ -20,7 +20,7 @@ animal_slow = {
 animal_fast = {
     "name": "animal_2",
     "speed": 6,
-    "perception": 0,
+    "perception": 10,
     "discretion": 0,
     "armor": 0,
     "attack": 1,
@@ -132,6 +132,33 @@ def test_attack_win():
     assert animal_1.hp == animal_1.max_hp - 1
 
 
+def test_attack_victim_hidden():
+    animal_1 = Animal(animal_slow)
+    animal_2 = Animal(animal_fast)
+    animal_1.discretion = animal_2.perception + 6
+    encounter = Encounter(animal_1, animal_2)
+    encounter.attack(animal_2, animal_1)
+    assert animal_1.hp == animal_1.max_hp
+
+
+def test_attack_slow_attacker_hidden():
+    animal_1 = Animal(animal_slow)
+    animal_2 = Animal(animal_fast)
+    animal_1.discretion = animal_2.perception + 6
+    encounter = Encounter(animal_1, animal_2)
+    encounter.attack(animal_1, animal_2)
+    assert animal_2.hp == animal_2.max_hp - 1
+
+
+def test_attack_fast_attacker_hidden():
+    animal_1 = Animal(animal_slow)
+    animal_2 = Animal(animal_fast)
+    animal_2.discretion = animal_1.perception + 6
+    encounter = Encounter(animal_1, animal_2)
+    encounter.attack(animal_2, animal_1)
+    assert animal_1.hp == animal_1.max_hp - 2
+
+
 def test_attack_lose():
     animal_1 = Animal(animal_slow)
     animal_2 = Animal(animal_fast)
@@ -220,3 +247,13 @@ def test_last_turn_should_close_encounter():
     encounter.turn_number = Encounter.maximum_turn
     encounter.turn()
     assert encounter.finished
+
+
+def test_run_all_chill():
+    animal_1 = Animal(animal_slow)
+    animal_2 = Animal(animal_fast)
+    encounter = Encounter(animal_1, animal_2)
+    Animal.compute_action = MagicMock(return_value="chill")
+    encounter.run()
+    assert encounter.finished
+    assert encounter.turn_number == Encounter.maximum_turn

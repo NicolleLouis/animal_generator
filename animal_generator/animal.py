@@ -42,7 +42,7 @@ class Animal:
         self.check_death()
 
     def chill(self):
-        self.energy += int(self.energy_consumption / 2)
+        self.energy += int(self.energy_consumption / 10)
 
     def heal(self):
         self.regen()

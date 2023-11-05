@@ -81,7 +81,7 @@ def test_chill():
     animal = Animal(test_animal)
     animal.energy_consumption = 100
     animal.chill()
-    assert animal.energy == animal.max_energy + 50
+    assert animal.energy == animal.max_energy + 10
 
 
 def test_heal():
