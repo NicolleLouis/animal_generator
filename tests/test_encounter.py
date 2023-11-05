@@ -257,3 +257,13 @@ def test_run_all_chill():
     encounter.run()
     assert encounter.finished
     assert encounter.turn_number == Encounter.maximum_turn
+
+
+def test_end_encounter_by_death():
+    animal_1 = Animal(animal_slow)
+    animal_2 = Animal(animal_fast)
+    encounter = Encounter(animal_1, animal_2)
+    animal_2.eat = MagicMock()
+    animal_1.die()
+    encounter.run()
+    animal_2.eat.assert_called_once()

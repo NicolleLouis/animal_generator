@@ -53,6 +53,21 @@ def test_check_death_age():
     assert not animal.alive
 
 
+def test_eat():
+    animal_1 = Animal(test_animal)
+    animal_2 = Animal(test_animal)
+    animal_2.die()
+    animal_1.eat(animal_2)
+    assert animal_1.energy == 2000
+
+
+def test_try_eat_animal_alive():
+    animal_1 = Animal(test_animal)
+    animal_2 = Animal(test_animal)
+    animal_1.eat(animal_2)
+    assert animal_1.energy == animal_1.max_energy
+
+
 def test_clean():
     animal = Animal(test_animal)
     animal.hp = animal.max_hp + 1

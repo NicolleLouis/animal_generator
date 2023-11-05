@@ -74,5 +74,10 @@ class Animal:
     def die(self):
         self.alive = False
 
+    # ToDo
     def compute_action(self, other_animal):
         return random.choice(self.actions)
+
+    def eat(self, other_animal):
+        if not other_animal.alive:
+            self.energy += Animal.size_ratio * other_animal.size
