@@ -18,7 +18,7 @@ class ZooViewer:
 
     @classmethod
     def find_zoo(cls):
-        zoo = Path(__file__).resolve().parent
+        zoo = Path(__file__).resolve().parent.parent
         for file in zoo.iterdir():
             if file.name == cls.zoo_directory_name:
                 return file

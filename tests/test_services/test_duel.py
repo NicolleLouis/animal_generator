@@ -1,4 +1,4 @@
-from animal_generator.duel import Duel
+from animal_generator.services.duel import Duel
 
 
 def test_random():

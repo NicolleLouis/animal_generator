@@ -1,7 +1,7 @@
 from unittest.mock import MagicMock
 
-from animal_generator.animal import Animal
-from animal_generator.encounter import Encounter
+from animal_generator.models.animal import Animal
+from animal_generator.models.encounter import Encounter
 
 animal_slow = {
     "name": "animal_1",

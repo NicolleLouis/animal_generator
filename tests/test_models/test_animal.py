@@ -1,4 +1,4 @@
-from animal_generator.animal import Animal
+from animal_generator.models.animal import Animal
 
 test_animal = {
     "name": "test_animal",

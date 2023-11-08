@@ -1,5 +1,5 @@
-from animal_generator.animal import Animal
-from animal_generator.energy_consumption import EnergyConsumption
+from animal_generator.models.animal import Animal
+from animal_generator.services.energy_consumption import EnergyConsumption
 
 test_animal = {
     "name": "test_animal",

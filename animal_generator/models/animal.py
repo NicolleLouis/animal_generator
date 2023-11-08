@@ -1,6 +1,6 @@
 import random
 
-from animal_generator.energy_consumption import EnergyConsumption
+from animal_generator.services.energy_consumption import EnergyConsumption
 
 
 class Animal:

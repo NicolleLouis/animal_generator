@@ -2,7 +2,7 @@ from unittest import mock
 
 import pytest
 
-from animal_generator.zoo_viewer import ZooViewer
+from animal_generator.services.zoo_viewer import ZooViewer
 from pathlib import PosixPath
 
 
