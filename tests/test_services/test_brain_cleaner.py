@@ -219,3 +219,67 @@ def test_check_synapses_input_output_relative_layer_failure_input_lower_level():
     brain_cleaner = BrainCleaner(brain)
     with pytest.raises(BrainCleanerException):
         brain_cleaner.check_synapses_input_output_relative_layer()
+
+
+def test_check_unicity_neuron_id():
+    brain = Brain(example_neurons, [example_synapse])
+    brain_cleaner = BrainCleaner(brain)
+    assert brain_cleaner.check_unicity_neuron_id()
+
+
+def test_check_unicity_neuron_id_fail():
+    neuron_0 = {
+        "id": 1,
+        "name": "example_neuron",
+        "layer": 1,
+        "function": "sum",
+    }
+    neuron_1 = {
+        "id": 1,
+        "name": "example_neuron",
+        "layer": 1,
+        "function": "sum",
+    }
+    BrainCleaner.run = MagicMock()
+    brain = Brain([neuron_0, neuron_1], [example_synapse])
+    brain_cleaner = BrainCleaner(brain)
+    with pytest.raises(BrainCleanerException):
+        brain_cleaner.check_unicity_neuron_id()
+
+
+def test_check_unicity_synapse_id():
+    synapse_0 = {
+        "id": 1,
+        "strength": 1,
+        "input": 1,
+        "output": 2,
+    }
+    synapse_1 = {
+        "id": 2,
+        "strength": 1,
+        "input": 1,
+        "output": 2,
+    }
+    brain = Brain(example_neurons, [synapse_0, synapse_1])
+    brain_cleaner = BrainCleaner(brain)
+    assert brain_cleaner.check_unicity_synapse_id()
+
+
+def test_check_unicity_synapse_id_fail():
+    synapse_0 = {
+        "id": 1,
+        "strength": 1,
+        "input": 1,
+        "output": 2,
+    }
+    synapse_1 = {
+        "id": 1,
+        "strength": 1,
+        "input": 1,
+        "output": 2,
+    }
+    BrainCleaner.run = MagicMock()
+    brain = Brain(example_neurons, [synapse_0, synapse_1])
+    brain_cleaner = BrainCleaner(brain)
+    with pytest.raises(BrainCleanerException):
+        brain_cleaner.check_unicity_synapse_id()

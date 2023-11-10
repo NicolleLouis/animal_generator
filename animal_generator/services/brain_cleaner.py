@@ -3,8 +3,9 @@ class BrainCleaner:
         self.brain = brain
         self.neurons_ids = self.extract_neurons_id()
 
-    # todo: Add duplicate neuron/synapse ids detection
     def run(self):
+        self.check_unicity_neuron_id()
+        self.check_unicity_synapse_id()
         self.check_synapses_links_to_neuron()
         self.check_synapses_input_output_relative_layer()
 
@@ -39,6 +40,27 @@ class BrainCleaner:
                 self.brain.neurons
             )
         )
+
+    def check_unicity_neuron_id(self):
+        id_number = len(list(set(self.neurons_ids)))
+        if id_number != len(self.brain.neurons):
+            raise BrainCleanerException("Duplicate Neurons Ids")
+        return True
+
+    def check_unicity_synapse_id(self):
+        id_number = len(
+            list(
+                set(
+                    map(
+                        lambda synapse: synapse.id,
+                        self.brain.synapses
+                    )
+                )
+            )
+        )
+        if id_number != len(self.brain.synapses):
+            raise BrainCleanerException("Duplicate Synapses Ids")
+        return True
 
 
 class BrainCleanerException(Exception):
