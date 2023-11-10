@@ -11,7 +11,9 @@ test_animal = {
     "size": 10,
     "color_1": 1,
     "color_2": 1,
-    "color_3": 1
+    "color_3": 1,
+    "neurons": [],
+    "synapses": [],
 }
 
 

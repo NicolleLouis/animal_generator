@@ -1,5 +1,6 @@
 import random
 
+from animal_generator.models.brain import Brain
 from animal_generator.services.energy_consumption import EnergyConsumption
 
 
@@ -21,6 +22,7 @@ class Animal:
         self.size = json["size"]
         self.specie = json["name"]
         self.speed = json["speed"]
+        self.brain = Brain(json["neurons"], json["synapses"])
 
         self.age = 0
         self.max_energy = self.size_ratio * self.size

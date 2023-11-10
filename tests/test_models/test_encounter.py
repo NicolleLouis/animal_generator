@@ -14,7 +14,9 @@ animal_slow = {
     "size": 10,
     "color_1": 1,
     "color_2": 1,
-    "color_3": 1
+    "color_3": 1,
+    "neurons": [],
+    "synapses": []
 }
 
 animal_fast = {
@@ -28,7 +30,9 @@ animal_fast = {
     "size": 10,
     "color_1": 1,
     "color_2": 1,
-    "color_3": 1
+    "color_3": 1,
+    "neurons": [],
+    "synapses": []
 }
 
 

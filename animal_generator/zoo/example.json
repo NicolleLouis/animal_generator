@@ -9,5 +9,21 @@
   "size": 1,
   "color_1": 1,
   "color_2": 1,
-  "color_3": 1
+  "color_3": 1,
+  "neurons": [
+    {
+      "id": 1,
+      "name": "example_neuron",
+      "layer": "input",
+      "function": "sum"
+    }
+  ],
+  "synapses": [
+    {
+      "id": 1,
+      "strength": 1,
+      "input": 1,
+      "output": 2
+    }
+  ]
 }
