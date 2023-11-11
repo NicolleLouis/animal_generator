@@ -13,11 +13,22 @@ class Brain:
 
         BrainCleaner(self).run()
 
-    def get_neuron(self, neuron_id):
+    def get_neuron_by_id(self, neuron_id):
         for neuron in self.neurons:
             if neuron.id == neuron_id:
                 return neuron
         raise BrainException(f"Neuron with id: {neuron_id} does not exist")
+
+    def get_neurons_by_layer(self, layer_number):
+        neurons_at_layer = list(
+            filter(
+                lambda neuron: neuron.layer == layer_number,
+                self.neurons
+            )
+        )
+        if len(neurons_at_layer) == 0:
+            raise BrainException(f"No neuron at layer: {layer_number}")
+        return neurons_at_layer
 
     @staticmethod
     def generate_neurons(raw_neurons):

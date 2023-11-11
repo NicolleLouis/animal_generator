@@ -283,3 +283,84 @@ def test_check_unicity_synapse_id_fail():
     brain_cleaner = BrainCleaner(brain)
     with pytest.raises(BrainCleanerException):
         brain_cleaner.check_unicity_synapse_id()
+
+
+def test_get_list_numeric_layer():
+    brain = Brain(example_neurons, [example_synapse])
+    brain_cleaner = BrainCleaner(brain)
+    assert [0, 1] == brain_cleaner.get_list_numeric_layer()
+
+
+def test_check_layer_completion_success():
+    brain = Brain(example_neurons, [example_synapse])
+    brain_cleaner = BrainCleaner(brain)
+    assert brain_cleaner.check_layer_completion()
+
+
+def test_check_layer_completion_failure():
+    neuron = {
+        "id": 1,
+        "name": "example_neuron",
+        "layer": 1,
+        "function": "sum",
+    }
+    BrainCleaner.run = MagicMock()
+    brain = Brain([neuron], [])
+    brain_cleaner = BrainCleaner(brain)
+    assert not brain_cleaner.check_layer_completion()
+
+
+def test_remove_first_empty_layer():
+    neuron = {
+        "id": 1,
+        "name": "example_neuron",
+        "layer": 1,
+        "function": "sum",
+    }
+    BrainCleaner.run = MagicMock()
+    brain = Brain([neuron], [])
+    neuron = brain.neurons[0]
+    brain_cleaner = BrainCleaner(brain)
+    assert neuron.layer == 1
+    brain_cleaner.remove_first_empty_layer()
+    assert neuron.layer == 0
+
+
+def test_replace_neuron_layer():
+    neuron = {
+        "id": 1,
+        "name": "example_neuron",
+        "layer": 1,
+        "function": "sum",
+    }
+    BrainCleaner.run = MagicMock()
+    brain = Brain([neuron], [])
+    neuron = brain.neurons[0]
+    brain_cleaner = BrainCleaner(brain)
+    assert neuron.layer == 1
+    brain_cleaner.replace_neuron_layer(1, 2)
+    assert neuron.layer == 2
+
+def test_clean_layer():
+    neuron_1 = {
+        "id": 1,
+        "name": "example_neuron",
+        "layer": 1,
+        "function": "sum",
+    }
+    neuron_2 = {
+        "id": 2,
+        "name": "example_neuron",
+        "layer": 3,
+        "function": "sum",
+    }
+    BrainCleaner.run = MagicMock()
+    brain = Brain([neuron_1, neuron_2], [])
+    neuron_1 = brain.neurons[0]
+    neuron_2 = brain.neurons[1]
+    brain_cleaner = BrainCleaner(brain)
+    assert neuron_1.layer == 1
+    assert neuron_2.layer == 3
+    brain_cleaner.clean_layer()
+    assert neuron_1.layer == 0
+    assert neuron_2.layer == 1

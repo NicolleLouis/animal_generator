@@ -31,13 +31,25 @@ def test_init():
     assert len(brain.synapses) == 1
 
 
-def test_get_neuron():
+def test_get_neuron_by_id():
     brain = Brain(example_neurons, [example_synapse])
-    neuron = brain.get_neuron(1)
+    neuron = brain.get_neuron_by_id(1)
     assert isinstance(neuron, Neuron)
 
 
-def test_get_neuron_failure():
+def test_get_neuron_by_id_failure():
     brain = Brain(example_neurons, [example_synapse])
     with pytest.raises(BrainException):
-        brain.get_neuron(3)
+        brain.get_neuron_by_id(3)
+
+
+def test_get_neurons_by_layer_success():
+    brain = Brain(example_neurons, [example_synapse])
+    neurons_at_input = brain.get_neurons_by_layer("input")
+    assert len(neurons_at_input) == 1
+
+
+def test_get_neurons_by_layer_failure():
+    brain = Brain(example_neurons, [example_synapse])
+    with pytest.raises(BrainException):
+        brain.get_neurons_by_layer(1)
