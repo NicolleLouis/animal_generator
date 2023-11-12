@@ -53,3 +53,26 @@ def test_get_neurons_by_layer_failure():
     brain = Brain(example_neurons, [example_synapse])
     with pytest.raises(BrainException):
         brain.get_neurons_by_layer(1)
+
+
+def test_reset_scores():
+    brain = Brain(example_neurons, [example_synapse])
+    brain.neurons[0].score = 10
+    brain.reset_scores()
+    for neuron in brain.neurons:
+        assert neuron.score is None
+
+
+def test_get_synapse_by_output_id_non_empty():
+    from animal_generator.models.synapse import Synapse
+
+    brain = Brain(example_neurons, [example_synapse])
+    synapses = brain.get_synapse_by_output_id(2)
+    assert len(synapses) == 1
+    assert isinstance(synapses[0], Synapse)
+
+
+def test_get_synapse_by_output_id_empty():
+    brain = Brain(example_neurons, [example_synapse])
+    synapses = brain.get_synapse_by_output_id("fake_id")
+    assert len(synapses) == 0

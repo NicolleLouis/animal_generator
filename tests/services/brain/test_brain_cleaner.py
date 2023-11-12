@@ -3,7 +3,7 @@ from unittest.mock import MagicMock
 import pytest
 
 from animal_generator.models.brain import Brain
-from animal_generator.services.brain_cleaner import BrainCleaner, BrainCleanerException
+from animal_generator.services.brain.brain_cleaner import BrainCleaner, BrainCleanerException
 
 example_neuron_input = {
     "id": 1,
@@ -128,14 +128,14 @@ def test_check_synapses_input_output_relative_layer_failure_same_layer_number():
         "layer": 0,
         "function": "sum",
     }
-    example_synapse = {
+    synapse = {
         "id": 1,
         "strength": 1,
         "input": 1,
         "output": 2,
     }
     BrainCleaner.run = MagicMock()
-    brain = Brain([neuron_0, neuron_1], [example_synapse])
+    brain = Brain([neuron_0, neuron_1], [synapse])
     brain_cleaner = BrainCleaner(brain)
     with pytest.raises(BrainCleanerException):
         brain_cleaner.check_synapses_input_output_relative_layer()
@@ -340,6 +340,7 @@ def test_replace_neuron_layer():
     assert neuron.layer == 1
     brain_cleaner.replace_neuron_layer(1, 2)
     assert neuron.layer == 2
+
 
 def test_clean_layer():
     neuron_1 = {

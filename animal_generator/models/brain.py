@@ -9,7 +9,7 @@ class Brain:
         self.clean()
 
     def clean(self):
-        from animal_generator.services.brain_cleaner import BrainCleaner
+        from animal_generator.services.brain.brain_cleaner import BrainCleaner
 
         BrainCleaner(self).run()
 
@@ -30,6 +30,15 @@ class Brain:
             raise BrainException(f"No neuron at layer: {layer_number}")
         return neurons_at_layer
 
+    def get_synapse_by_output_id(self, output_id):
+        synapses_with_output = list(
+            filter(
+                lambda synapse: synapse.output == output_id,
+                self.synapses
+            )
+        )
+        return synapses_with_output
+
     @staticmethod
     def generate_neurons(raw_neurons):
         neurons = []
@@ -43,6 +52,10 @@ class Brain:
         for raw_synapse in raw_synapses:
             synapses.append(Synapse(raw_synapse))
         return synapses
+
+    def reset_scores(self):
+        for neuron in self.neurons:
+            neuron.reset_score()
 
 
 class BrainException(Exception):

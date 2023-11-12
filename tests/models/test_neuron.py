@@ -11,3 +11,10 @@ example_neuron = {
 def test_init():
     neuron = Neuron(example_neuron)
     assert type(neuron) is Neuron
+
+
+def test_reset_score():
+    neuron = Neuron(example_neuron)
+    neuron.score = 1
+    neuron.reset_score()
+    assert neuron.score is None

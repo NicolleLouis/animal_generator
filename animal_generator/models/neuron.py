@@ -4,3 +4,7 @@ class Neuron:
         self.name = raw_neuron["name"]
         self.layer = raw_neuron["layer"]
         self.function = raw_neuron["function"]
+        self.score = None
+
+    def reset_score(self):
+        self.score = None
