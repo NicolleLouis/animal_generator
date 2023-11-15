@@ -14,7 +14,7 @@ class ZooViewer:
                 animal = json.load(json_data)
                 if animal["name"] == name:
                     return animal
-        raise "Animal Not Found"
+        raise ZooViewerException("Animal Not Found")
 
     @classmethod
     def find_zoo(cls):
@@ -22,4 +22,8 @@ class ZooViewer:
         for file in zoo.iterdir():
             if file.name == cls.zoo_directory_name:
                 return file
-        raise "Zoo Not Found"
+        raise ZooViewerException("Zoo Not Found")
+
+
+class ZooViewerException(Exception):
+    """All Zoo Viewer Exceptions"""

@@ -1,0 +1,10 @@
+{
+  "name": "example_ecosystem",
+  "dangerousness": 0,
+  "animals": [
+    {
+      "name": "example_animal",
+      "quantity": 1
+    }
+  ]
+}
