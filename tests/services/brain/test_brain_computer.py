@@ -144,3 +144,37 @@ def test_compute_brain():
     assert brain.neurons[1].score == 2
     assert brain.neurons[2].score == 4
     assert brain.neurons[3].score == 8
+
+
+def test_compute_final_result():
+    neuron_output_1 = {
+        "id": 2,
+        "name": "not_the_result",
+        "layer": "output",
+        "function": "sum",
+    }
+    neuron_output_2 = {
+        "id": 3,
+        "name": "true_result",
+        "layer": "output",
+        "function": "sum",
+    }
+    synapse_output_1 = {
+        "id": 1,
+        "strength": 1,
+        "input": 1,
+        "output": 2,
+    }
+    synapse_output_2 = {
+        "id": 2,
+        "strength": 2,
+        "input": 1,
+        "output": 3,
+    }
+    brain = Brain(
+        [neuron_input, neuron_output_1, neuron_output_2],
+        [synapse_output_1, synapse_output_2]
+    )
+    brain_computer = BrainComputer(brain)
+    brain_computer.compute_brain()
+    assert brain_computer.result == "true_result"

@@ -4,12 +4,19 @@ import functools
 class BrainComputer:
     def __init__(self, brain):
         self.brain = brain
+        self.result = None
+
+    def compute_final_result(self):
+        output_neurons = self.brain.get_neurons_by_layer("output")
+        maximum_neuron = max(output_neurons, key=lambda neuron: neuron.score)
+        self.result = maximum_neuron.name
 
     def compute_brain(self):
         self.brain.reset_scores()
         ordered_neurons = self.sort_neurons()
         for neuron in ordered_neurons:
             self.compute_neuron(neuron)
+        self.compute_final_result()
 
     def compute_neuron(self, neuron) -> None:
         if neuron.layer == "input":
