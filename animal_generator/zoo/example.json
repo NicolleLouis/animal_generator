@@ -13,8 +13,14 @@
   "neurons": [
     {
       "id": 1,
-      "name": "example_neuron",
+      "name": "constant",
       "layer": "input",
+      "function": "sum"
+    },
+    {
+      "id": 2,
+      "name": "chill",
+      "layer": "output",
       "function": "sum"
     }
   ],
