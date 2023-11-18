@@ -33,6 +33,8 @@ class Animal:
 
         self.set_energy_consumption()
 
+        self.fitness_score = None
+
     def turn(self):
         if not self.alive:
             return
@@ -83,3 +85,9 @@ class Animal:
     def eat(self, other_animal):
         if not other_animal.alive:
             self.energy += Animal.size_ratio * other_animal.size
+
+    def reset(self):
+        self.fitness_score = None
+        self.alive = True
+        self.hp = self.max_hp
+        self.energy = self.max_energy

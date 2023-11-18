@@ -2,6 +2,7 @@ from unittest import mock
 
 import pytest
 
+from animal_generator.models.animal import Animal
 from animal_generator.services.zoo_viewer import ZooViewer, ZooViewerException
 from pathlib import PosixPath
 
@@ -24,4 +25,4 @@ def test_find_animal_fail():
 
 def test_find_animal():
     animal = ZooViewer.find_animal("example_animal")
-    assert isinstance(animal, dict)
+    assert isinstance(animal, Animal)

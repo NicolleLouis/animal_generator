@@ -127,3 +127,15 @@ def test_compute_action():
     animal_1 = Animal(test_animal)
     animal_2 = Animal(test_animal)
     assert animal_1.compute_action(animal_2) in Animal.actions
+
+
+def test_reset():
+    animal = Animal(test_animal)
+    animal.die()
+    animal.hp = 10
+    animal.energy = 123
+
+    animal.reset()
+    assert animal.alive
+    assert animal.hp == animal.max_hp
+    assert animal.energy == animal.max_energy

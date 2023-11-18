@@ -1,3 +1,4 @@
+from animal_generator.services.random import RandomService
 from animal_generator.services.zoo_viewer import ZooViewer
 
 
@@ -29,8 +30,21 @@ class Ecosystem:
             total_population += animal.number
         return total_population
 
+    def pick_animal(self):
+        remaining_animal_population = self.total_population
+        for animal_population in self.animals:
+            if RandomService.pick_n_among(animal_population.number, remaining_animal_population):
+                return animal_population.animal
+            else:
+                remaining_animal_population -= animal_population.number
+        raise EcosystemException('Failure while picking an animal')
+
 
 class AnimalPopulation:
     def __init__(self, animal, number):
         self.animal = animal
         self.number = number
+
+
+class EcosystemException(Exception):
+    """All Ecosystem Exceptions"""

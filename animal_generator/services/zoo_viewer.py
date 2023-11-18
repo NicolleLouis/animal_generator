@@ -1,6 +1,8 @@
 import json
 from pathlib import Path
 
+from animal_generator.models.animal import Animal
+
 
 class ZooViewer:
     zoo_directory_name = 'zoo'
@@ -13,7 +15,7 @@ class ZooViewer:
             with open(animal_file) as json_data:
                 animal = json.load(json_data)
                 if animal["name"] == name:
-                    return animal
+                    return Animal(animal)
         raise ZooViewerException("Animal Not Found")
 
     @classmethod

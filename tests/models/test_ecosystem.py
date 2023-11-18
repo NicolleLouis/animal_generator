@@ -1,4 +1,10 @@
-from animal_generator.models.ecosystem import Ecosystem, AnimalPopulation
+from unittest.mock import MagicMock
+
+import pytest
+
+from animal_generator.models.animal import Animal
+from animal_generator.models.ecosystem import Ecosystem, AnimalPopulation, EcosystemException
+from animal_generator.services.random import RandomService
 
 test_ecosystem = {
     "name": "example_ecosystem",
@@ -7,7 +13,11 @@ test_ecosystem = {
         {
             "name": "example_animal",
             "quantity": 1
-        }
+        },
+        {
+            "name": "example_animal",
+            "quantity": 2
+        },
     ]
 }
 
@@ -20,10 +30,22 @@ def test_initial_values():
 
 def test_animal_creation():
     ecosystem = Ecosystem(test_ecosystem)
-    assert len(ecosystem.animals) == 1
+    assert len(ecosystem.animals) == 2
     assert isinstance(ecosystem.animals[0], AnimalPopulation)
 
 
 def test_compute_total_population():
     ecosystem = Ecosystem(test_ecosystem)
-    assert ecosystem.total_population == 1
+    assert ecosystem.total_population == 3
+
+
+def test_pick_animal():
+    ecosystem = Ecosystem(test_ecosystem)
+    assert isinstance(ecosystem.pick_animal(), Animal)
+
+
+def test_pick_animal_impossible_pick():
+    ecosystem = Ecosystem(test_ecosystem)
+    RandomService.pick_n_among = MagicMock(return_value=False)
+    with pytest.raises(EcosystemException):
+        ecosystem.pick_animal()
