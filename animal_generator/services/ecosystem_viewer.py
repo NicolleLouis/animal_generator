@@ -1,6 +1,8 @@
 import json
 from pathlib import Path
 
+from animal_generator.models.ecosystem import Ecosystem
+
 
 class EcosystemViewer:
     ecosystem_directory_name = 'list_ecosystem'
@@ -13,7 +15,7 @@ class EcosystemViewer:
             with open(ecosystem_file) as json_data:
                 ecosystem = json.load(json_data)
                 if ecosystem["name"] == name:
-                    return ecosystem
+                    return Ecosystem(ecosystem)
         raise EcosystemViewerException("Ecosystem Not Found")
 
     @classmethod

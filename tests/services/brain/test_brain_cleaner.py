@@ -1,4 +1,4 @@
-from unittest.mock import MagicMock
+from unittest.mock import patch
 
 import pytest
 
@@ -57,31 +57,31 @@ def test_check_synapses_links_to_neuron():
 
 
 def test_check_synapses_links_to_neuron_case_fail_input():
-    BrainCleaner.run = MagicMock()
-    unplugged_input_synapse = {
-        "id": 1,
-        "strength": 1,
-        "input": 10,
-        "output": 2,
-    }
-    brain = Brain(example_neurons, [example_synapse, unplugged_input_synapse])
-    brain_cleaner = BrainCleaner(brain)
-    with pytest.raises(BrainCleanerException):
-        brain_cleaner.check_synapses_links_to_neuron()
+    with patch.object(BrainCleaner, 'run'):
+        unplugged_input_synapse = {
+            "id": 1,
+            "strength": 1,
+            "input": 10,
+            "output": 2,
+        }
+        brain = Brain(example_neurons, [example_synapse, unplugged_input_synapse])
+        brain_cleaner = BrainCleaner(brain)
+        with pytest.raises(BrainCleanerException):
+            brain_cleaner.check_synapses_links_to_neuron()
 
 
 def test_check_synapses_links_to_neuron_case_fail_output():
-    BrainCleaner.run = MagicMock()
-    unplugged_input_synapse = {
-        "id": 1,
-        "strength": 1,
-        "input": 1,
-        "output": 20,
-    }
-    brain = Brain(example_neurons, [example_synapse, unplugged_input_synapse])
-    brain_cleaner = BrainCleaner(brain)
-    with pytest.raises(BrainCleanerException):
-        brain_cleaner.check_synapses_links_to_neuron()
+    with patch.object(BrainCleaner, 'run'):
+        unplugged_input_synapse = {
+            "id": 1,
+            "strength": 1,
+            "input": 1,
+            "output": 20,
+        }
+        brain = Brain(example_neurons, [example_synapse, unplugged_input_synapse])
+        brain_cleaner = BrainCleaner(brain)
+        with pytest.raises(BrainCleanerException):
+            brain_cleaner.check_synapses_links_to_neuron()
 
 
 def test_check_synapses_input_output_relative_layer_success():
@@ -103,16 +103,16 @@ def test_check_synapses_input_output_relative_layer_success():
         "input": 4,
         "output": 2,
     }
-    BrainCleaner.run = MagicMock()
     synapses = [
         example_synapse,
         synapse_1,
         synapse_2,
         synapse_3
     ]
-    brain = Brain(example_neurons, synapses)
-    brain_cleaner = BrainCleaner(brain)
-    assert brain_cleaner.check_synapses_input_output_relative_layer()
+    with patch.object(BrainCleaner, 'run'):
+        brain = Brain(example_neurons, synapses)
+        brain_cleaner = BrainCleaner(brain)
+        assert brain_cleaner.check_synapses_input_output_relative_layer()
 
 
 def test_check_synapses_input_output_relative_layer_failure_same_layer_number():
@@ -134,11 +134,11 @@ def test_check_synapses_input_output_relative_layer_failure_same_layer_number():
         "input": 1,
         "output": 2,
     }
-    BrainCleaner.run = MagicMock()
-    brain = Brain([neuron_0, neuron_1], [synapse])
-    brain_cleaner = BrainCleaner(brain)
-    with pytest.raises(BrainCleanerException):
-        brain_cleaner.check_synapses_input_output_relative_layer()
+    with patch.object(BrainCleaner, 'run'):
+        brain = Brain([neuron_0, neuron_1], [synapse])
+        brain_cleaner = BrainCleaner(brain)
+        with pytest.raises(BrainCleanerException):
+            brain_cleaner.check_synapses_input_output_relative_layer()
 
 
 def test_check_synapses_input_output_relative_layer_failure_same_layer_input():
@@ -154,11 +154,11 @@ def test_check_synapses_input_output_relative_layer_failure_same_layer_input():
         "layer": "input",
         "function": "sum",
     }
-    BrainCleaner.run = MagicMock()
-    brain = Brain([neuron_0, neuron_1], [example_synapse])
-    brain_cleaner = BrainCleaner(brain)
-    with pytest.raises(BrainCleanerException):
-        brain_cleaner.check_synapses_input_output_relative_layer()
+    with patch.object(BrainCleaner, 'run'):
+        brain = Brain([neuron_0, neuron_1], [example_synapse])
+        brain_cleaner = BrainCleaner(brain)
+        with pytest.raises(BrainCleanerException):
+            brain_cleaner.check_synapses_input_output_relative_layer()
 
 
 def test_check_synapses_input_output_relative_layer_failure_input_output():
@@ -174,11 +174,11 @@ def test_check_synapses_input_output_relative_layer_failure_input_output():
         "layer": 1,
         "function": "sum",
     }
-    BrainCleaner.run = MagicMock()
-    brain = Brain([neuron_0, neuron_1], [example_synapse])
-    brain_cleaner = BrainCleaner(brain)
-    with pytest.raises(BrainCleanerException):
-        brain_cleaner.check_synapses_input_output_relative_layer()
+    with patch.object(BrainCleaner, 'run'):
+        brain = Brain([neuron_0, neuron_1], [example_synapse])
+        brain_cleaner = BrainCleaner(brain)
+        with pytest.raises(BrainCleanerException):
+            brain_cleaner.check_synapses_input_output_relative_layer()
 
 
 def test_check_synapses_input_output_relative_layer_failure_output_input():
@@ -194,11 +194,11 @@ def test_check_synapses_input_output_relative_layer_failure_output_input():
         "layer": "input",
         "function": "sum",
     }
-    BrainCleaner.run = MagicMock()
-    brain = Brain([neuron_0, neuron_1], [example_synapse])
-    brain_cleaner = BrainCleaner(brain)
-    with pytest.raises(BrainCleanerException):
-        brain_cleaner.check_synapses_input_output_relative_layer()
+    with patch.object(BrainCleaner, 'run'):
+        brain = Brain([neuron_0, neuron_1], [example_synapse])
+        brain_cleaner = BrainCleaner(brain)
+        with pytest.raises(BrainCleanerException):
+            brain_cleaner.check_synapses_input_output_relative_layer()
 
 
 def test_check_synapses_input_output_relative_layer_failure_input_lower_level():
@@ -214,11 +214,11 @@ def test_check_synapses_input_output_relative_layer_failure_input_lower_level():
         "layer": 0,
         "function": "sum",
     }
-    BrainCleaner.run = MagicMock()
-    brain = Brain([neuron_0, neuron_1], [example_synapse])
-    brain_cleaner = BrainCleaner(brain)
-    with pytest.raises(BrainCleanerException):
-        brain_cleaner.check_synapses_input_output_relative_layer()
+    with patch.object(BrainCleaner, 'run'):
+        brain = Brain([neuron_0, neuron_1], [example_synapse])
+        brain_cleaner = BrainCleaner(brain)
+        with pytest.raises(BrainCleanerException):
+            brain_cleaner.check_synapses_input_output_relative_layer()
 
 
 def test_check_unicity_neuron_id():
@@ -240,11 +240,11 @@ def test_check_unicity_neuron_id_fail():
         "layer": 1,
         "function": "sum",
     }
-    BrainCleaner.run = MagicMock()
-    brain = Brain([neuron_0, neuron_1], [example_synapse])
-    brain_cleaner = BrainCleaner(brain)
-    with pytest.raises(BrainCleanerException):
-        brain_cleaner.check_unicity_neuron_id()
+    with patch.object(BrainCleaner, 'run'):
+        brain = Brain([neuron_0, neuron_1], [example_synapse])
+        brain_cleaner = BrainCleaner(brain)
+        with pytest.raises(BrainCleanerException):
+            brain_cleaner.check_unicity_neuron_id()
 
 
 def test_check_unicity_synapse_id():
@@ -278,11 +278,11 @@ def test_check_unicity_synapse_id_fail():
         "input": 1,
         "output": 2,
     }
-    BrainCleaner.run = MagicMock()
-    brain = Brain(example_neurons, [synapse_0, synapse_1])
-    brain_cleaner = BrainCleaner(brain)
-    with pytest.raises(BrainCleanerException):
-        brain_cleaner.check_unicity_synapse_id()
+    with patch.object(BrainCleaner, 'run'):
+        brain = Brain(example_neurons, [synapse_0, synapse_1])
+        brain_cleaner = BrainCleaner(brain)
+        with pytest.raises(BrainCleanerException):
+            brain_cleaner.check_unicity_synapse_id()
 
 
 def test_get_list_numeric_layer():
@@ -304,10 +304,10 @@ def test_check_layer_completion_failure():
         "layer": 1,
         "function": "sum",
     }
-    BrainCleaner.run = MagicMock()
-    brain = Brain([neuron], [])
-    brain_cleaner = BrainCleaner(brain)
-    assert not brain_cleaner.check_layer_completion()
+    with patch.object(BrainCleaner, 'run'):
+        brain = Brain([neuron], [])
+        brain_cleaner = BrainCleaner(brain)
+        assert not brain_cleaner.check_layer_completion()
 
 
 def test_remove_first_empty_layer():
@@ -317,13 +317,13 @@ def test_remove_first_empty_layer():
         "layer": 1,
         "function": "sum",
     }
-    BrainCleaner.run = MagicMock()
-    brain = Brain([neuron], [])
-    neuron = brain.neurons[0]
-    brain_cleaner = BrainCleaner(brain)
-    assert neuron.layer == 1
-    brain_cleaner.remove_first_empty_layer()
-    assert neuron.layer == 0
+    with patch.object(BrainCleaner, 'run'):
+        brain = Brain([neuron], [])
+        neuron = brain.neurons[0]
+        brain_cleaner = BrainCleaner(brain)
+        assert neuron.layer == 1
+        brain_cleaner.remove_first_empty_layer()
+        assert neuron.layer == 0
 
 
 def test_replace_neuron_layer():
@@ -333,13 +333,13 @@ def test_replace_neuron_layer():
         "layer": 1,
         "function": "sum",
     }
-    BrainCleaner.run = MagicMock()
-    brain = Brain([neuron], [])
-    neuron = brain.neurons[0]
-    brain_cleaner = BrainCleaner(brain)
-    assert neuron.layer == 1
-    brain_cleaner.replace_neuron_layer(1, 2)
-    assert neuron.layer == 2
+    with patch.object(BrainCleaner, 'run'):
+        brain = Brain([neuron], [])
+        neuron = brain.neurons[0]
+        brain_cleaner = BrainCleaner(brain)
+        assert neuron.layer == 1
+        brain_cleaner.replace_neuron_layer(1, 2)
+        assert neuron.layer == 2
 
 
 def test_clean_layer():
@@ -355,13 +355,13 @@ def test_clean_layer():
         "layer": 3,
         "function": "sum",
     }
-    BrainCleaner.run = MagicMock()
-    brain = Brain([neuron_1, neuron_2], [])
-    neuron_1 = brain.neurons[0]
-    neuron_2 = brain.neurons[1]
-    brain_cleaner = BrainCleaner(brain)
-    assert neuron_1.layer == 1
-    assert neuron_2.layer == 3
-    brain_cleaner.clean_layer()
-    assert neuron_1.layer == 0
-    assert neuron_2.layer == 1
+    with patch.object(BrainCleaner, 'run'):
+        brain = Brain([neuron_1, neuron_2], [])
+        neuron_1 = brain.neurons[0]
+        neuron_2 = brain.neurons[1]
+        brain_cleaner = BrainCleaner(brain)
+        assert neuron_1.layer == 1
+        assert neuron_2.layer == 3
+        brain_cleaner.clean_layer()
+        assert neuron_1.layer == 0
+        assert neuron_2.layer == 1

@@ -29,6 +29,14 @@ neuron_layer_1 = {
     "layer": 1,
     "function": "sum",
 }
+
+example_neurons = [
+    neuron_input,
+    neuron_layer_0,
+    neuron_layer_1,
+    neuron_output,
+]
+
 synapse_0 = {
     "id": 1,
     "strength": 2,
@@ -36,19 +44,13 @@ synapse_0 = {
     "output": 3,
 }
 synapse_1 = {
-    "id": 1,
+    "id": 2,
     "strength": 2,
     "input": 3,
     "output": 4,
 }
-example_neurons = [
-    neuron_input,
-    neuron_layer_0,
-    neuron_layer_1,
-    neuron_output,
-]
 synapse_2 = {
-    "id": 1,
+    "id": 3,
     "strength": 2,
     "input": 4,
     "output": 2,

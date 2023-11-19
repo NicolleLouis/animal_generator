@@ -2,6 +2,7 @@ from unittest import mock
 
 import pytest
 
+from animal_generator.models.ecosystem import Ecosystem
 from animal_generator.services.ecosystem_viewer import EcosystemViewer, EcosystemViewerException
 from pathlib import PosixPath
 
@@ -24,4 +25,4 @@ def test_find_ecosystem_fail():
 
 def test_find_ecosystem():
     ecosystem = EcosystemViewer.find_ecosystem("example_ecosystem")
-    assert isinstance(ecosystem, dict)
+    assert isinstance(ecosystem, Ecosystem)

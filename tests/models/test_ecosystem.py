@@ -1,4 +1,4 @@
-from unittest.mock import MagicMock
+from unittest.mock import patch
 
 import pytest
 
@@ -46,6 +46,7 @@ def test_pick_animal():
 
 def test_pick_animal_impossible_pick():
     ecosystem = Ecosystem(test_ecosystem)
-    RandomService.pick_n_among = MagicMock(return_value=False)
-    with pytest.raises(EcosystemException):
-        ecosystem.pick_animal()
+    with patch.object(RandomService, 'pick_n_among') as mock:
+        mock.return_value = False
+        with pytest.raises(EcosystemException):
+            ecosystem.pick_animal()

@@ -91,7 +91,6 @@ class Encounter:
 
         if not self.second_animal.alive:
             self.first_animal.eat(self.second_animal)
-            return
 
     def check_finish(self):
         if self.turn_number >= self.maximum_turn:

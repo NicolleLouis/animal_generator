@@ -1,4 +1,4 @@
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, patch
 
 from animal_generator.models.animal import Animal
 from animal_generator.models.encounter import Encounter
@@ -257,10 +257,11 @@ def test_run_all_chill():
     animal_1 = Animal(animal_slow)
     animal_2 = Animal(animal_fast)
     encounter = Encounter(animal_1, animal_2)
-    Animal.compute_action = MagicMock(return_value="chill")
-    encounter.run()
-    assert encounter.finished
-    assert encounter.turn_number == Encounter.maximum_turn
+    with patch.object(Animal, 'compute_action') as mock:
+        mock.return_value = "chill"
+        encounter.run()
+        assert encounter.finished
+        assert encounter.turn_number == Encounter.maximum_turn
 
 
 def test_end_encounter_by_death():
