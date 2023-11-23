@@ -11,25 +11,38 @@ class BrainComputer:
         maximum_neuron = max(output_neurons, key=lambda neuron: neuron.score)
         self.result = maximum_neuron.name
 
-    def compute_brain(self):
+    def compute_brain(self, other_animal):
         self.brain.reset_scores()
         ordered_neurons = self.sort_neurons()
         for neuron in ordered_neurons:
-            self.compute_neuron(neuron)
+            self.compute_neuron(neuron, other_animal)
         self.compute_final_result()
 
-    def compute_neuron(self, neuron) -> None:
+    def compute_neuron(self, neuron, other_animal) -> None:
         if neuron.layer == "input":
-            neuron.score = self.compute_input_neuron(neuron)
+            neuron.score = self.compute_input_neuron(neuron, other_animal)
         else:
             input_scores = self.get_input_scores(neuron)
             neuron.score = sum(input_scores)
 
-    @staticmethod
-    def compute_input_neuron(neuron):
+    def compute_input_neuron(self, neuron, other_animal):
         match neuron.name:
             case "constant":
                 return 1
+            case "own_hp":
+                return self.brain.animal.hp
+            case "own_energy":
+                return self.brain.animal.energy
+            case "other_hp":
+                return other_animal.hp
+            case "other_size":
+                return other_animal.size
+            case "other_speed":
+                return other_animal.speed
+            case "other_attack":
+                return other_animal.attack
+            case "other_armor":
+                return other_animal.armor
         raise BrainComputerException(f"Name: {neuron.name} not recognized")
 
     def get_input_scores(self, neuron):

@@ -2,9 +2,10 @@ class EnergyConsumption:
     armor_ratio = 10
     attack_ratio = 10
     discretion_ratio = 1
+    lifespan_ratio = 1
     perception_ratio = 1
-    speed_ratio = 20
     size_ratio = 10
+    speed_ratio = 20
 
     @classmethod
     def compute_energy(cls, animal):
@@ -12,7 +13,8 @@ class EnergyConsumption:
         energy_consumption += animal.armor * cls.armor_ratio
         energy_consumption += animal.attack * cls.attack_ratio
         energy_consumption += animal.discretion * cls.discretion_ratio
+        energy_consumption += animal.lifespan * cls.lifespan_ratio
         energy_consumption += animal.perception * cls.perception_ratio
-        energy_consumption += animal.speed * cls.speed_ratio
         energy_consumption += animal.size * cls.size_ratio
+        energy_consumption += animal.speed * cls.speed_ratio
         return energy_consumption

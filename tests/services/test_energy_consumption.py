@@ -21,4 +21,4 @@ test_animal = {
 def test_compute_energy():
     animal = Animal(test_animal)
     energy_consumption = EnergyConsumption.compute_energy(animal)
-    assert energy_consumption == 373
+    assert energy_consumption == 473

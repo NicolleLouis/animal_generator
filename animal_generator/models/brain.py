@@ -3,7 +3,8 @@ from animal_generator.models.synapse import Synapse
 
 
 class Brain:
-    def __init__(self, raw_neurons, raw_synapses):
+    def __init__(self, animal, raw_neurons, raw_synapses):
+        self.animal = animal
         self.neurons = self.generate_neurons(raw_neurons)
         self.synapses = self.generate_synapses(raw_synapses)
         self.clean()
