@@ -12,8 +12,27 @@ test_animal = {
     "color_1": 1,
     "color_2": 1,
     "color_3": 1,
-    "neurons": [],
-    "synapses": [],
+    "neurons": [
+        {
+            "id": 1,
+            "name": "constant",
+            "layer": "input",
+            "function": "sum",
+        },
+        {
+            "id": 2,
+            "name": "chill",
+            "layer": "output",
+            "function": "sum",
+        },
+
+    ],
+    "synapses": [{
+        "id": 1,
+        "strength": 1,
+        "input": 1,
+        "output": 2,
+    }],
 }
 
 

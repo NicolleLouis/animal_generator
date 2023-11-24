@@ -7,7 +7,7 @@ class Experience:
     Making it run n encounter, win 100 points per encounter,
     then if he survives all encounters, points per energy and hp remaining (Up to 100pts per scale)
     """
-    ENCOUNTER_NUMBER = 10
+    ENCOUNTER_NUMBER = 100
 
     def __init__(self, ecosystem, animal):
         self.ecosystem = ecosystem

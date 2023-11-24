@@ -1,0 +1,14 @@
+{
+  "name": "meadow",
+  "dangerousness": 0,
+  "animals": [
+    {
+      "name": "grass",
+      "quantity": 2
+    },
+    {
+      "name": "rabbit",
+      "quantity": 1
+    }
+  ]
+}

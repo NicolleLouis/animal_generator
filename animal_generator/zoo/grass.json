@@ -1,0 +1,35 @@
+{
+  "name": "grass",
+  "speed": 0,
+  "perception": 0,
+  "discretion": 0,
+  "armor": 0,
+  "attack": 0,
+  "lifespan": 100,
+  "size": 1,
+  "color_1": 0,
+  "color_2": 0,
+  "color_3": 0,
+  "neurons": [
+    {
+      "id": 1,
+      "name": "constant",
+      "layer": "input",
+      "function": "sum"
+    },
+    {
+      "id": 2,
+      "name": "chill",
+      "layer": "output",
+      "function": "sum"
+    }
+  ],
+  "synapses": [
+    {
+      "id": 1,
+      "strength": 1,
+      "input": 1,
+      "output": 2
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "name": "rabbit",
+  "speed": 20,
+  "perception": 5,
+  "discretion": 5,
+  "armor": 0,
+  "attack": 5,
+  "lifespan": 100,
+  "size": 10,
+  "color_1": 0,
+  "color_2": 0,
+  "color_3": 0,
+  "neurons": [
+    {
+      "id": 1,
+      "name": "constant",
+      "layer": "input",
+      "function": "sum"
+    },
+    {
+      "id": 2,
+      "name": "other_attack",
+      "layer": "input",
+      "function": "sum"
+    },
+    {
+      "id": 3,
+      "name": "attack",
+      "layer": "output",
+      "function": "sum"
+    },
+    {
+      "id": 4,
+      "name": "flee",
+      "layer": "output",
+      "function": "sum"
+    }
+  ],
+  "synapses": [
+    {
+      "id": 1,
+      "strength": 1,
+      "input": 1,
+      "output": 3
+    },
+    {
+      "id": 2,
+      "strength": -1,
+      "input": 2,
+      "output": 3
+    }
+  ]
+}

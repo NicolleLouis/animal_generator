@@ -1,11 +1,10 @@
-import random
-
 from animal_generator.models.brain import Brain
 from animal_generator.services.energy_consumption import EnergyConsumption
 
 
 class Animal:
-    size_ratio = 100
+    health_ratio = 10
+    energy_ratio = 100
     actions = ["attack", "flee", "heal", "chill"]
 
     def __init__(self, json):
@@ -25,9 +24,9 @@ class Animal:
         self.brain = Brain(self, json["neurons"], json["synapses"])
 
         self.age = 0
-        self.max_energy = self.size_ratio * self.size
+        self.max_energy = self.energy_ratio * self.size
         self.energy = self.max_energy
-        self.max_hp = self.size_ratio * self.size
+        self.max_hp = self.health_ratio * self.size
         self.hp = self.max_hp
         self.alive = True
 
@@ -54,6 +53,7 @@ class Animal:
     def hurt(self, raw_damage):
         damage = int(raw_damage * (100 / (100 + self.armor)))
         self.hp -= damage
+        self.check_death()
 
     def clean(self):
         self.hp = min(self.hp, self.max_hp)
@@ -66,10 +66,10 @@ class Animal:
         self.hp += self.size
 
     def check_death(self):
-        if self.hp == 0:
+        if self.hp < 0:
             self.die()
 
-        if self.energy == 0:
+        if self.energy < 0:
             self.die()
 
         if self.age > self.lifespan:
@@ -78,13 +78,12 @@ class Animal:
     def die(self):
         self.alive = False
 
-    # ToDo
     def compute_action(self, other_animal):
-        return random.choice(self.actions)
+        return self.brain.compute(other_animal)
 
     def eat(self, other_animal):
         if not other_animal.alive:
-            self.energy += Animal.size_ratio * other_animal.size
+            self.energy += Animal.energy_ratio * other_animal.size
 
     def reset(self):
         self.fitness_score = None

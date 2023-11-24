@@ -1,5 +1,6 @@
 from animal_generator.models.neuron import Neuron
 from animal_generator.models.synapse import Synapse
+from animal_generator.services.brain.brain_computer import BrainComputer
 
 
 class Brain:
@@ -7,6 +8,7 @@ class Brain:
         self.animal = animal
         self.neurons = self.generate_neurons(raw_neurons)
         self.synapses = self.generate_synapses(raw_synapses)
+        self.computer = BrainComputer(self)
         self.clean()
 
     def clean(self):
@@ -57,6 +59,10 @@ class Brain:
     def reset_scores(self):
         for neuron in self.neurons:
             neuron.reset_score()
+
+    def compute(self, other_animal):
+        self.computer.compute_brain(other_animal)
+        return self.computer.result
 
 
 class BrainException(Exception):
